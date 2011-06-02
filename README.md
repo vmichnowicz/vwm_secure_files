@@ -51,4 +51,4 @@ With VWM Secure File (and some .htaccess help) you can lock this file down so on
 
 ## License
 
-VWM Secure Files is licensed under the (Apache 2 License)[http://www.apache.org/licenses/LICENSE-2.0.html].
+VWM Secure Files is licensed under the [Apache 2 License](http://www.apache.org/licenses/LICENSE-2.0.html).
