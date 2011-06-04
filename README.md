@@ -23,8 +23,10 @@ With VWM Secure File (and some .htaccess help) you can lock this file down so on
 2. Make sure permissions are 777
 3. Place .htaccess file inside with following code
 
-	order deny, allow
-	deny from all
+```
+order deny, allow
+deny from all
+```
 
 ## How to Use (module installation)
 

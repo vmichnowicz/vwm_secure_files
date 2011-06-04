@@ -184,10 +184,10 @@ class Vwm_secure_files_m extends CI_Model {
 			$data = array(
 				'file_path'			=> trim($file['file_path']),
 				'hash'				=> md5( trim($file['file_path']) . time() ),
-				'allowed_groups'	=> implode(',', $file['allowed_groups']),
-				'allowed_members'	=> implode(',', $file['allowed_members']),
-				'denied_groups'		=> implode(',', $file['denied_groups']),
-				'denied_members'	=> implode(',', $file['denied_members']),
+				'allowed_groups'	=> isset($file['allowed_groups']) ? implode(',', $file['allowed_groups']) : NULL,
+				'allowed_members'	=> isset($file['allowed_members']) ? implode(',', $file['allowed_members']) : NULL,
+				'denied_groups'		=> isset($file['denied_groups']) ? implode(',', $file['denied_groups']) : NULL,
+				'denied_members'	=> isset($file['denied_members']) ? implode(',', $file['denied_members']) : NULL,
 				'download_limit'	=> (int)$file['download_limit'],
 				'created'			=> time()
 			);
