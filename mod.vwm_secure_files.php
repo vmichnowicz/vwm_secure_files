@@ -93,9 +93,17 @@ class Vwm_secure_files {
 			// If the user is allowed to download this file
 			if ($we_good)
 			{
-				// Make sure this file exists
-				if ( file_exists($file['file_path']) )
+				/**
+				 * Make sure this file exists
+				 * 
+				 * fopen() can check both local (secure/file.txt) and remote
+				 * (http://example.com/secure/file.txt) files. 
+				 */
+				if ( $handle = fopen($file['file_path'], 'r') )
 				{
+					// Close file handle
+					fclose($handle);
+					
 					// Add one to the downloads counter
 					$this->EE->vwm_secure_files_m->record_download($file['id']);
 					
