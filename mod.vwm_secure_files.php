@@ -104,9 +104,6 @@ class Vwm_secure_files {
 					// Close file handle
 					fclose($handle);
 
-					// Add one to the downloads counter
-					$this->EE->vwm_secure_files_m->record_download($file['id']);
-
 					// Get file size
 					$file['size'] = $this->file_size($file['file_path']);
 
@@ -133,6 +130,10 @@ class Vwm_secure_files {
 
 					// Return file data
 					readfile($file['file_path']);
+					
+					// Add one to the downloads counter
+					$this->EE->vwm_secure_files_m->record_download($file['id']);
+					
 					exit;
 				}
 				else
@@ -172,8 +173,8 @@ class Vwm_secure_files {
 			$file_size = filesize($file_name);
 		}
 		/**
-		 *  If this file exists on a remote server
-		 *  http://example.com/secure/secure.txt
+		 * If this file exists on a remote server
+		 * http://example.com/secure/secure.txt
 		 * 
 		 * @link http://us.php.net/manual/en/function.filesize.php#92462
 		 */
@@ -186,10 +187,10 @@ class Vwm_secure_files {
 				$curl = curl_init($file_name);
 				
 				// Set options
-				curl_setopt($curl, CURLOPT_NOBODY, true);
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($curl, CURLOPT_HEADER, true);
-				curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+				curl_setopt($curl, CURLOPT_NOBODY, TRUE);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+				curl_setopt($curl, CURLOPT_HEADER, TRUE);
+				curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
 				
 				// Exexute & close
 				$data = curl_exec($curl);
