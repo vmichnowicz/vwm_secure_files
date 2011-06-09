@@ -103,20 +103,40 @@ class Vwm_secure_files {
 				{
 					// Close file handle
 					fclose($handle);
-					
+
 					// Add one to the downloads counter
 					$this->EE->vwm_secure_files_m->record_download($file['id']);
-					
-					// Get file contents
-					$file_contents = file_get_contents($file['file_path']);
-					
+
+					/**
+					 * Get file size (only for local files)
+					 * @todo get file size for remote files
+					 */
+					$file['size'] = file_exists($file['file_path']) ? filesize($file['file_path']) : NULL;
+
 					// Get file name
 					$file_name = basename($file['file_path']);
-					
+
 					// Set headers so user is prompted to download file
+					header('Content-Description: File Transfer');
+					header('Content-Type: application/octet-stream');
 					header('Content-Disposition: attachment; filename="' . $file_name . '"');
-					
-					echo $file_contents;
+					header('Content-Transfer-Encoding: binary');
+					header('Expires: 0');
+					header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+					header('Pragma: public');
+
+					// If we have a file size then this will help provide a progress meter for our download
+					if($file['size'])
+					{
+						header('Content-Length: ' . filesize($file));
+					}
+
+					ob_clean();
+					flush();
+
+					// Return file data
+					readfile($file['file_path']);
+					exit;
 				}
 				else
 				{
