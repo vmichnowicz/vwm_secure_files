@@ -107,11 +107,7 @@ class Vwm_secure_files {
 					// Add one to the downloads counter
 					$this->EE->vwm_secure_files_m->record_download($file['id']);
 
-					/**
-					 * Get file size (only for local files)
-					 * @todo get file size for remote files
-					 */
-					//$file['size'] = file_exists($file['file_path']) ? filesize($file['file_path']) : NULL;
+					// Get file size
 					$file['size'] = $this->file_size($file['file_path']);
 
 					// Get file name
@@ -160,7 +156,7 @@ class Vwm_secure_files {
 	/**
 	 * Get the file size of a file
 	 * 
-	 * @param string		File name
+	 * @param string		File path
 	 */
 	private function file_size($file_name)
 	{
@@ -178,6 +174,8 @@ class Vwm_secure_files {
 		/**
 		 *  If this file exists on a remote server
 		 *  http://example.com/secure/secure.txt
+		 * 
+		 * @link http://us.php.net/manual/en/function.filesize.php#92462
 		 */
 		else
 		{
