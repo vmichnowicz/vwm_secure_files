@@ -111,7 +111,8 @@ class Vwm_secure_files {
 					 * Get file size (only for local files)
 					 * @todo get file size for remote files
 					 */
-					$file['size'] = file_exists($file['file_path']) ? filesize($file['file_path']) : NULL;
+					//$file['size'] = file_exists($file['file_path']) ? filesize($file['file_path']) : NULL;
+					$file['size'] = $this->file_size($file['file_path']);
 
 					// Get file name
 					$file_name = basename($file['file_path']);
@@ -128,7 +129,7 @@ class Vwm_secure_files {
 					// If we have a file size then this will help provide a progress meter for our download
 					if($file['size'])
 					{
-						header('Content-Length: ' . filesize($file));
+						header('Content-Length: ' . $file['size']);
 					}
 
 					ob_clean();
@@ -154,6 +155,59 @@ class Vwm_secure_files {
 		{
 			show_404();
 		}
+	}
+	
+	/**
+	 * Get the file size of a file
+	 * 
+	 * @param string		File name
+	 */
+	private function file_size($file_name)
+	{
+		// Let's play it safe and assume we don't know the file size
+		$file_size = NULL;
+		
+		/**
+		 *  If this file exists on the local server
+		 *  secure/secure.txt
+		 */
+		if ( file_exists($file_name) )
+		{
+			$file_size = filesize($file_name);
+		}
+		/**
+		 *  If this file exists on a remote server
+		 *  http://example.com/secure/secure.txt
+		 */
+		else
+		{
+			// Make sure CURL is enabled
+			if ( in_array('curl', get_loaded_extensions()) )
+			{
+				// Initialize
+				$curl = curl_init($file_name);
+				
+				// Set options
+				curl_setopt($curl, CURLOPT_NOBODY, true);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($curl, CURLOPT_HEADER, true);
+				curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+				
+				// Exexute & close
+				$data = curl_exec($curl);
+				curl_close($curl);
+				
+				if ($data != FALSE)
+				{
+					if ( preg_match('/Content-Length: (\d+)/', $data, $matches) )
+					{
+						$file_size = (int)$matches[1];
+					}
+				}
+			}
+		}
+		
+		return $file_size;
 	}
 	
 }
