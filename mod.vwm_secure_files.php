@@ -144,7 +144,20 @@ class Vwm_secure_files {
 			// If the user is not allowed to download this file
 			else
 			{
-				show_error($error);
+				echo '<b>File Info</b>: ';
+				var_dump($file);
+				
+				echo '<hr>';
+				
+				echo '<b>Member ID</b>: ';
+				var_dump($this->EE->session->userdata('member_id'));
+				
+				echo '<hr>';
+				
+				echo '<b>Group ID</b>: ';
+				var_dump($this->EE->session->userdata('group_id'));
+				
+				@show_error($error);
 			}
 		}
 		// If this file does not exist
