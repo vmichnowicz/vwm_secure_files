@@ -22,6 +22,7 @@ With VWM Secure File (and some .htaccess help) you can lock this file down so on
 1. Create a folder on your server in order to place your uploaded files
 2. Make sure permissions are 777
 3. Place .htaccess file inside with following code
+4. If you plan on accessing files on remote servers make sure [allow_url_fopen](http://www.php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen) is set to `TRUE` on the remote server
 
 ```
 order deny, allow
