@@ -42,7 +42,7 @@ class Vwm_secure_files {
 	public function download_file()
 	{
 		// Grab file ID
-		$hash = (int)$this->EE->input->get('ID');
+		$hash = $this->EE->input->get('ID');
 		
 		// If this file is in the secure files database
 		if ( $file = $this->EE->vwm_secure_files_m->get_file($hash) )
