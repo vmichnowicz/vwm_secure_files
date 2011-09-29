@@ -53,7 +53,7 @@ class Vwm_secure_files_m extends CI_Model {
 					'allowed_members' => $row->allowed_members ? explode(',', $row->allowed_members) : array(),
 					'denied_groups' => $row->denied_groups ? explode(',', $row->denied_groups) : array(),
 					'denied_members' => $row->denied_members ? explode(',', $row->denied_members) : array(),
-					'download_limit' => (int)$row->download_limit,
+					'download_limit' => $row->download_limit == '' ? NULL : $row->download_limit,
 					'downloads' => (int)$row->downloads,
 					'created' => (int)$row->created,
 					'updated' => (int)$row->updated
@@ -134,7 +134,7 @@ class Vwm_secure_files_m extends CI_Model {
 				'allowed_members' => $row->allowed_members ? explode(',', $row->allowed_members) : array(),
 				'denied_groups' => $row->denied_groups ? explode(',', $row->denied_groups) : array(),
 				'denied_members' => $row->denied_members ? explode(',', $row->denied_members) : array(),
-				'download_limit' => (int)$row->download_limit,
+				'download_limit' => $row->download_limit == '' ? NULL : $row->download_limit,
 				'downloads' => (int)$row->downloads,
 				'created' => (int)$row->created,
 				'updated' => (int)$row->updated
@@ -159,7 +159,7 @@ class Vwm_secure_files_m extends CI_Model {
 			'allowed_members'	=> $file['allowed_members'] == 'null' ? NULL : implode(',', $file['allowed_members']),
 			'denied_groups'		=> $file['denied_groups'] == 'null' ? NULL : implode(',', $file['denied_groups']),
 			'denied_members'	=> $file['denied_members'] == 'null' ? NULL : implode(',', $file['denied_members']),
-			'download_limit'	=> (int)$file['download_limit'],
+			'download_limit'	=> $file['download_limit'] == '' ? NULL : $file['download_limit'],
 			'updated'			=> time()
 		);
 
@@ -188,7 +188,7 @@ class Vwm_secure_files_m extends CI_Model {
 				'allowed_members'	=> isset($file['allowed_members']) ? implode(',', $file['allowed_members']) : NULL,
 				'denied_groups'		=> isset($file['denied_groups']) ? implode(',', $file['denied_groups']) : NULL,
 				'denied_members'	=> isset($file['denied_members']) ? implode(',', $file['denied_members']) : NULL,
-				'download_limit'	=> (int)$file['download_limit'],
+				'download_limit'	=> $file['download_limit'] == '' ? NULL : $file['download_limit'],
 				'created'			=> time()
 			);
 

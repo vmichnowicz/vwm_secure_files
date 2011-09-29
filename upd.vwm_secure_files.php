@@ -17,7 +17,7 @@
  */
 class Vwm_secure_files_upd {
 
-	public $version = '0.1';
+	public $version = '0.2';
 	
 	/**
 	 * Constructor
@@ -126,7 +126,16 @@ class Vwm_secure_files_upd {
 	 */	
 	public function update($current = '')
 	{
-		return FALSE;
+		// Get database prefix
+		$prefix = $this->EE->db->dbprefix;
+
+		// If user is on the first release of VWM Secure Files - version 0.1
+		if ($current == '0.1')
+		{
+			// Allow download limit to be NULL
+			$this->EE->db->query("ALTER TABLE  `{$prefix}vwm_secure_files_files` CHANGE  `download_limit`  `download_limit` MEDIUMINT( 16 ) UNSIGNED NULL DEFAULT NULL");
+		}
+		return TRUE;
 	}
 	
 }

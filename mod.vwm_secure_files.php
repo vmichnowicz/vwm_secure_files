@@ -79,17 +79,17 @@ class Vwm_secure_files {
 				$error = lang('vwm_secure_files_denied_member');
 			}
 			
-			// If this file has a download limit?
-			if ($file['download_limit'] > 0)
+			// If this file has a download limit
+			if ($file['download_limit'] !== NULL)
 			{
-				// If we are all good so far and the download limit been met?
-				if ($we_good AND $file['download_limit'] >= $file['downloads'])
+				// If we are all good so far AND the total number of downloads is less than or equal to the total number of file downloads
+				if ( $we_good AND $file['downloads'] >= $file['download_limit'] )
 				{
 					$we_good = FALSE;
 					$error = lang('vwm_secure_files_limit_reached');
 				}
 			}
-			
+
 			// If the user is allowed to download this file
 			if ($we_good)
 			{
