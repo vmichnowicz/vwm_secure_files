@@ -1,5 +1,13 @@
 # VWM Secure Files
 
+## Release Notes
+
+### Version 0.2 ###
+
+* Changed how download limit works (a limit of 0 is no longer "unlimited downloads", now you must clear that input to make it truly unlimited)
+* Make sure to update all your files with a limit of "0" to be an empty string "" if you want the download limit to be unlimited
+* Make sure to run the module updater to make this change in the database
+
 ## About
 
 VWM Secure Files allows you to restrict access to files based on a given members group and/or member ID. It includes a module and and a simple fieldtype component.
