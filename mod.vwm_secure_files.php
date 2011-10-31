@@ -125,9 +125,6 @@ class Vwm_secure_files {
 						header('Content-Length: ' . $file['size']);
 					}
 
-					ob_clean();
-					flush();
-
 					// Return file data
 					readfile($file['file_path']);
 					
