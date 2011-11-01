@@ -67,7 +67,7 @@ A new feature to version 0.3 is the ability to add a folder as a secure file and
 http://example.com/index.php/?ACT=24&ID=54d1f4645ee8d994a91ece3b6181c093&file_path=i_am_awesome.jpg
 ````
 
-And if the user decides to get tricky and do some URL traversal he will be sorely disappointed for I am harnessing the power of `str_replace()` to remove all `../` and `..\\`.
+And if the user decides to get tricky and do some URL traversal he will be sorely disappointed for I am harnessing the power of `str_replace()` to remove all `../` and `..\`.
 
 ## Some Notes
 
