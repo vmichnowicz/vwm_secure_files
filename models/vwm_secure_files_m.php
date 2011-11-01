@@ -130,6 +130,7 @@ class Vwm_secure_files_m extends CI_Model {
 				'id' => (int)$row->id,
 				'hash' => $row->hash,
 				'file_path' => $row->file_path,
+				'is_folder' => substr($row->file_path, -1) == '/' ? TRUE : FALSE,
 				'allowed_groups' => $row->allowed_groups ? explode(',', $row->allowed_groups) : array(),
 				'allowed_members' => $row->allowed_members ? explode(',', $row->allowed_members) : array(),
 				'denied_groups' => $row->denied_groups ? explode(',', $row->denied_groups) : array(),

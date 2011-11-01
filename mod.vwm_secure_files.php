@@ -41,8 +41,8 @@ class Vwm_secure_files {
 	 */
 	public function download_file()
 	{
-		// Grab file ID
-		$hash = $this->EE->input->get('ID');
+		$hash = $this->EE->input->get('ID'); // Hash ID
+		$file_path = $this->EE->input->get('file_path') ? $this->EE->input->get('file_path') : NULL; // Additional file path info when a folder is provided for the hash ID
 		
 		// If this file is in the secure files database
 		if ( $file = $this->EE->vwm_secure_files_m->get_file($hash) )
@@ -90,6 +90,16 @@ class Vwm_secure_files {
 				}
 			}
 
+			// If secure path is a folder and a file path was provided in the URL
+			if ( ( $file_path != NULL ) AND $file['is_folder'] == TRUE )
+			{
+				// Escape reverse directory traversal
+				$file_path = str_replace(array('../', '..\\'), '', $file_path);
+
+				// Set new file path
+				$file['file_path'] = $file['file_path'] . $file_path;
+			}
+
 			// If the user is allowed to download this file
 			if ($we_good)
 			{
@@ -97,9 +107,13 @@ class Vwm_secure_files {
 				 * Make sure this file exists
 				 * 
 				 * fopen() can check both local (secure/file.txt) and remote
-				 * (http://example.com/secure/file.txt) files. 
+				 * (http://example.com/secure/file.txt) files.
+				 *
+				 * Use @ to suppress all errors when attempting to open the
+				 * file. It's fine if PHP cannot open the file. We just don't
+				 * want to hear it bitch about it.
 				 */
-				if ( $handle = fopen($file['file_path'], 'r') )
+				if ( @ $handle = fopen($file['file_path'], 'r') )
 				{
 					// Close file handle
 					fclose($handle);
@@ -124,9 +138,6 @@ class Vwm_secure_files {
 					{
 						header('Content-Length: ' . $file['size']);
 					}
-
-					ob_clean();
-					flush();
 
 					// Return file data
 					readfile($file['file_path']);

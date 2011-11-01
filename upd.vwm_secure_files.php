@@ -66,7 +66,7 @@ class Vwm_secure_files_upd {
 				`allowed_members` varchar(256) DEFAULT NULL,
 				`denied_groups` varchar(256) DEFAULT NULL,
 				`denied_members` varchar(256) DEFAULT NULL,
-				`download_limit` mediumint(16) unsigned NOT NULL DEFAULT '0',
+				`download_limit` mediumint(16) unsigned NULL DEFAULT NULL,
 				`downloads` mediumint(16) unsigned NOT NULL DEFAULT '0',
 				`created` int(10) unsigned NOT NULL,
 				`updated` int(10) unsigned DEFAULT NULL,
