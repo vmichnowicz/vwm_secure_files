@@ -17,7 +17,7 @@
  */
 class Vwm_secure_files_upd {
 
-	public $version = '0.2';
+	public $version = '0.3';
 	
 	/**
 	 * Constructor

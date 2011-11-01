@@ -2,6 +2,11 @@
 
 ## Release Notes
 
+### Version 0.3 ###
+
+* Actually changed how download limit works (I only changed it in the upload SQL last version...)
+* Can now add a folder as a secure file and then pass a second URL param to link to a file
+
 ### Version 0.2 ###
 
 * Changed how download limit works (a limit of 0 is no longer "unlimited downloads", now you must clear that input to make it truly unlimited)
@@ -53,6 +58,16 @@ deny from all
 3. Enter file path to file you want to lock down (a path relative to your EE `index.php` **should** work, otherwise an absolute server path may be necessary)
 4. Select member and group permissions
 5. Click *Add Secure File* button
+
+## How to Use (getting it done with secure folders)
+
+A new feature to version 0.3 is the ability to add a folder as a secure file and then pass a second URL param to link to the file. Assume you add the secure file `uploads/` (Make sure to add the trailing `/`!). You can then append the URL param `file_path` to link to any file inside the `uploads` directory. The URL for this file could look something like this:
+
+````
+http://example.com/index.php/?ACT=24&ID=54d1f4645ee8d994a91ece3b6181c093&file_path=i_am_awesome.jpg
+````
+
+And if the user decides to get tricky and do some URL traversal he will be sorely disappointed for I am harnessing the power of `str_replace()` to remove all `../` and `..\\`.
 
 ## Some Notes
 
