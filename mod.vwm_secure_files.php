@@ -28,10 +28,11 @@ class Vwm_secure_files {
 		// Make a local reference to the ExpressionEngine super object
 		$this->EE =& get_instance();
 
-		// Load model
-		require_once PATH_THIRD . 'vwm_secure_files/models/vwm_secure_files_m.php';
-		$this->EE->vwm_secure_files_m = new Vwm_secure_files_m();
+		// Make damn sure module path is defined
+		$this->EE->load->add_package_path(PATH_THIRD . 'vwm_polls/');
 
+		// Load lang, helper, and model
+		$this->EE->load->model('vwm_secure_files_m');
 		$this->EE->lang->loadfile('vwm_secure_files');
 	}
 	
