@@ -29,7 +29,7 @@ class Vwm_secure_files_mcp {
 		$this->EE =& get_instance();
 
 		// Make damn sure module path is defined
-		$this->EE->load->add_package_path(PATH_THIRD . 'vwm_polls/');
+		$this->EE->load->add_package_path(PATH_THIRD . 'vwm_secure_files/');
 
 		// Load model
 		$this->EE->load->model('vwm_secure_files_m');
