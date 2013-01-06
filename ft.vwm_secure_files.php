@@ -32,6 +32,9 @@ class Vwm_secure_files_ft extends EE_Fieldtype {
 	{
 		parent::__construct();
 
+		// Make damn sure module path is defined
+		$this->EE->load->add_package_path(PATH_THIRD . 'vwm_secure_files/');
+
 		// Load model
 		$this->EE->lang->loadfile('vwm_secure_files');
 		$this->EE->load->model('vwm_secure_files_m');
